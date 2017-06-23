@@ -107,52 +107,71 @@ submitButton.addEventListener('click', submit);
 
 
 
+// controls what function the button will have
+var itemClickControl = 1;
 
-
+//just declaring this variables here so it can be accessed by both of the buttons functions
+var deleteTimeout =''
+var target = '';
 
 //The function for when an item is clicked:
 function itemClicked (){
 
-	//test if click is being noticed
-	//console.log('item was clicked');
-
-	//discover what does 'this' refer to
-	console.log(this);
-
-	//test using 'this' as reference
-	//this.innerText = 'chupa cabra';
-
-	// strikes text
-	this.innerHTML = this.innerText.strike();
-	
-
-	//test if remove works
-	//this.remove();
-
-	//var for referencing this item in functions
-	var target = this;
+	//updates this var so it now means this ispecific item
+	target = this;
 
 
-	//create function for removing
-	function eliminate(){
-		//test eliminate
-		//console.log(target);
+	if(itemClickControl == 1){
+		//test if click is being noticed
+		//console.log('item was clicked');
 
-		//removes this item
-		target.remove();
+		//discover what does 'this' refer to
+		console.log(this);
 
-		// var a = this.parentElement;
-		// a.remove();
-	}
+		//test using 'this' as reference
+		//this.innerText = 'chupa cabra';
 
-	// test eliminate function
-	//eliminate();
+		// strikes text
+		this.innerHTML = this.innerText.strike();
+		
+
+		//test if remove works
+		//this.remove();
+
+		//var for referencing this item in functions
+		target = this;
 
 
-	//set delete timeout
-	deleteTimeout = setTimeout(eliminate, 1000);
+		//create function for removing
+		function eliminate(){
+			//test eliminate
+			//console.log(target);
 
-	
+			//removes this item
+			target.remove();
+			itemClickControl = itemClickControl * (-1);
+
+			// var a = this.parentElement;
+			// a.remove();
+		}
+
+		// test eliminate function
+		//eliminate();
+
+
+		//set delete timeout
+		 deleteTimeout = setTimeout(eliminate, 1000);
+
+
+	}else if(itemClickControl == -1){
+
+		clearTimeout(deleteTimeout);
+	} else{ console.log('invalid itemClickControl');}
+
+
+	itemClickControl = itemClickControl * (-1);
+
+
 }
 
 
