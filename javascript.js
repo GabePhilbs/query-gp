@@ -107,26 +107,96 @@ submitButton.addEventListener('click', submit);
 
 
 
+//eliminates all the items that have the doomed class
+function removeElementsByClass(className){
+				var elements = document.getElementsByClassName('doomed');
+				while(elements.length > 0){
+				elements[0].parentNode.removeChild(elements[0]);
+				}
+			}
+
+
+
+
+//creates function for removing items
+		function eliminate(){
+			//test eliminate
+			//console.log(target);
+
+			//removes this item
+			//target.remove();
+			//itemClickControl = itemClickControl * (-1);
+
+			// var a = this.parentElement;
+			// a.remove();
+
+
+			
+
+			removeElementsByClass();
+
+
+		}
+
+
+
+
+
+
+
+
 // controls what function the button will have
-var itemClickControl = 1;
+//var itemClickControl = 1;
 
 //just declaring this variables here so it can be accessed by both of the buttons functions
-var deleteTimeout =''
+var deleteTimeout = null;
 var target = '';
 
 //The function for when an item is clicked:
 function itemClicked (){
+	var intext = target.innerText;
+
 
 	//updates this var so it now means this ispecific item
 	target = this;
 
+	if(target.classList.contains('doomed')){
 
-	if(itemClickControl == 1){
+
+		//test if logical test is working
+		console.log('boolean true ');
+
+
+		// //figuring out the name of the timeout for this specific li
+		// var targetText = target.innerText;
+		// var constString = 'deleteTimeout';
+		// //var targetDel = target.innerText + 'deleteTimeout';
+		// var targetDel =  targetText.concat(constString);
+
+		//checking if the string is right
+		//console.log(targetDe);
+
+
+		target.classList.remove('doomed');
+
+		window.clearTimeout(deleteTimeout);
+
+		//var p = document.getElementById('a')
+		target.style.textDecoration = 'none';
+		
+
+		
+
+
+	} else{
+		//test if logical test is working
+		console.log('boolean false ');
+
 		//test if click is being noticed
 		//console.log('item was clicked');
 
 		//discover what does 'this' refer to
-		console.log(this);
+		//console.log(this);
 
 		//test using 'this' as reference
 		//this.innerText = 'chupa cabra';
@@ -138,38 +208,36 @@ function itemClicked (){
 		//test if remove works
 		//this.remove();
 
-		//var for referencing this item in functions
-		target = this;
-
-
-		//create function for removing
-		function eliminate(){
-			//test eliminate
-			//console.log(target);
-
-			//removes this item
-			target.remove();
-			itemClickControl = itemClickControl * (-1);
-
-			// var a = this.parentElement;
-			// a.remove();
-		}
 
 		// test eliminate function
 		//eliminate();
 
 
 		//set delete timeout
-		 deleteTimeout = setTimeout(eliminate, 1000);
+		window.deleteTimeout = setTimeout(eliminate, 3000);
+
+		 // * * * * apparentlty js does not accept multiple instances of timeout, so i had to use a loop
+		 // in the eliminate function, instead of creating unique timeouts for each crosed item
+
+		// //giving this timeout a specific name
+		// var targetText = target.innerText;
+		// var constString = 'deleteTimeout';
+		// var targetDel =  targetText.concat(constString);
+
+		//giving ti a class to indicte it is in time out
+		 target.classList.add('doomed');
+
+		 //console.log(targetDel);
+		 //targetDel = setTimeout(eliminate, 3000);
+
+		 //to see if the naming works
+		 //console.log(targetDel);
 
 
-	}else if(itemClickControl == -1){
-
-		clearTimeout(deleteTimeout);
-	} else{ console.log('invalid itemClickControl');}
+	}
 
 
-	itemClickControl = itemClickControl * (-1);
+	//itemClickControl = itemClickControl * (-1);
 
 
 }
